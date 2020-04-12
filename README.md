@@ -1,4 +1,10 @@
-# Gilded Rose Refactoring Kata
+# Gilded Rose Refactoring Kata - Scala
+
+## Steps
+- Add unit tests
+- centralize names / magic values: less error prone and more easily maintainable (DRY)
+
+## Description
 
 This Kata was originally created by Terry Hughes (http://twitter.com/TerryHughes). It is already on GitHub [here](https://github.com/NotMyself/GildedRose). See also [Bobby Johnson's description of the kata](http://iamnotmyself.com/2011/02/13/refactor-this-the-gilded-rose-kata/).
 
