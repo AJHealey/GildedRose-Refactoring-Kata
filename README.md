@@ -3,6 +3,7 @@
 ## Steps
 - Add unit tests
 - centralize names / magic values: less error prone and more easily maintainable (DRY)
+- extract logic for basic operation (decrease & increase quality): less error prone, more maintainability (DRY)
 
 ## Description
 

@@ -15,23 +15,17 @@ class GildedRose(val items: Array[Item]) {
 
                     if (item.name.equals(BACKSTAGE_PASSES)) {
                         if (item.sellIn < 11) {
-                            if (item.quality < 50) {
-                                item.quality = item.quality + 1
-                            }
+                            increaseQualityOf(item)
                         }
 
                         if (item.sellIn < 6) {
-                            if (item.quality < 50) {
-                                item.quality = item.quality + 1
-                            }
+                            increaseQualityOf(item)
                         }
                     }
                 }
             }
             else if (!item.name.equals(SULFURAS)) {
-                if (item.quality > 0) {
-                    item.quality = item.quality - 1
-                }
+                decreaseQualityOf(item)
             }
 
             if (!item.name.equals(SULFURAS)) {
@@ -41,20 +35,35 @@ class GildedRose(val items: Array[Item]) {
             if (item.sellIn < 0) {
                 if (!item.name.equals(AGED_BRIE)) {
                     if (!item.name.equals(BACKSTAGE_PASSES)) {
-                        if (item.quality > 0) {
                             if (!item.name.equals(SULFURAS)) {
-                                item.quality = item.quality - 1
+                                decreaseQualityOf(item)
                             }
-                        }
+
                     } else {
                         item.quality = 0
                     }
                 } else {
-                    if (item.quality < 50) {
-                        item.quality = item.quality + 1
-                    }
+                    increaseQualityOf(item)
                 }
             }
         }
+    }
+
+    /**
+     * Increase quality of an item by 1 if possible
+     * Quality cannot exceed 50
+     * @param item for which the quality will be increased
+     */
+    private def increaseQualityOf(item: Item): Unit = {
+        if (item.quality < 50) item.quality += 1
+    }
+
+    /**
+     * decrease quality of an item by 1 if possible
+     * Quality cannot be less than 0
+     * @param item for which the quality will be increased
+     */
+    private def decreaseQualityOf(item: Item): Unit = {
+        if (item.quality > 0) item.quality -= 1
     }
 }
