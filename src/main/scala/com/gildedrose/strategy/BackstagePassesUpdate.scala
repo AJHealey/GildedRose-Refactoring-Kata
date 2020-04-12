@@ -8,15 +8,14 @@ object BackstagePassesUpdate extends UpdateStrategy {
         if (item.sellIn < 0)
             item.quality = 0
 
-        else {
+        else if (item.sellIn < 5)
+            increaseQualityOf(item, 3)
+
+        else if (item.sellIn < 10)
+            increaseQualityOf(item, 2)
+
+        else
             increaseQualityOf(item)
 
-            if (item.sellIn < 10)
-                increaseQualityOf(item)
-
-            if (item.sellIn < 5)
-                increaseQualityOf(item)
-
-        }
     }
 }

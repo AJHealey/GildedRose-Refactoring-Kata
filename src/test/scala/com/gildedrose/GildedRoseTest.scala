@@ -103,4 +103,22 @@ class GildedRoseTest  extends AnyFlatSpec with Matchers {
         app.items(0).sellIn should equal(-1)
     }
 
+    "Conjured item" should "decrease in quality by 2 when not expired" in {
+        val items = Array[Item](new Item("Conjured shoes", 5, 15))
+        val app = new GildedRose(items)
+
+        app.updateQuality()
+        app.items(0).quality should equal(13)
+        app.items(0).sellIn should equal(4)
+    }
+
+    it should "decrease in quality by 4 when not expired" in {
+        val items = Array[Item](new Item("Conjured shoes", 0, 15))
+        val app = new GildedRose(items)
+
+        app.updateQuality()
+        app.items(0).quality should equal(11)
+        app.items(0).sellIn should equal(-1)
+    }
+
 }
