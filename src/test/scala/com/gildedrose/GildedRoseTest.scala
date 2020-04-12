@@ -47,7 +47,51 @@ class GildedRoseTest  extends AnyFlatSpec with Matchers {
         app.updateQuality()
         app.items(0).quality should equal(12)
         app.items(0).sellIn should equal(-1)
+    }
 
+    "Sulfuras" should "never decrease in any value" in {
+        val items = Array[Item](new Item("Sulfuras, Hand of Ragnaros", 0, 80))
+        val app = new GildedRose(items)
+
+        app.updateQuality()
+        app.items(0).quality should equal(80)
+        app.items(0).sellIn should equal(0)
+    }
+
+    "Backstage passes" should "increases normally when sellin > 10" in {
+        val items = Array[Item](new Item("Backstage passes to a TAFKAL80ETC concert", 15, 12))
+        val app = new GildedRose(items)
+
+        app.updateQuality()
+        app.items(0).quality should equal(13)
+        app.items(0).sellIn should equal(14)
+    }
+
+    it should "increase by 2 when sellin <= 10 but > 5" in {
+        val items = Array[Item](new Item("Backstage passes to a TAFKAL80ETC concert", 10, 12))
+        val app = new GildedRose(items)
+
+        app.updateQuality()
+        app.items(0).quality should equal(14)
+        app.items(0).sellIn should equal(9)
+    }
+
+    it should "increase by 3 when sellin <= 5 but > 0" in {
+        val items = Array[Item](new Item("Backstage passes to a TAFKAL80ETC concert", 5, 12))
+        val app = new GildedRose(items)
+
+        app.updateQuality()
+        app.items(0).quality should equal(15)
+        app.items(0).sellIn should equal(4)
+    }
+
+    it should "drop to zero after the concert" in {
+        val items = Array[Item](new Item("Backstage passes to a TAFKAL80ETC concert", 0, 15))
+        val app = new GildedRose(items)
+
+        app.updateQuality()
+        app.items(0).quality should equal(0)
+        app.items(0).sellIn should equal(-1)
     }
 
 }
