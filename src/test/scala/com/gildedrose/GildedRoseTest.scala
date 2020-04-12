@@ -4,13 +4,22 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
 class GildedRoseTest  extends AnyFlatSpec with Matchers {
-    "Common item" should "decrease in quality" in {
+    "Common item" should "decrease in quality by 1 when not expired" in {
         val items = Array[Item](new Item("foo", 5, 3))
         val app = new GildedRose(items)
         app.updateQuality()
         app.items(0).name should equal ("foo")
         app.items(0).quality should equal (2)
         app.items(0).sellIn should equal (4)
+    }
+
+    it should "decrease in quality by 2 when expired" in {
+        val items = Array[Item](new Item("foo", 0, 3))
+        val app = new GildedRose(items)
+        app.updateQuality()
+        app.items(0).name should equal ("foo")
+        app.items(0).quality should equal (1)
+        app.items(0).sellIn should equal (-1)
     }
 
     it should "never decrease in quality below zero" in {
@@ -59,12 +68,12 @@ class GildedRoseTest  extends AnyFlatSpec with Matchers {
     }
 
     "Backstage passes" should "increases normally when sellin > 10" in {
-        val items = Array[Item](new Item("Backstage passes to a TAFKAL80ETC concert", 15, 12))
+        val items = Array[Item](new Item("Backstage passes to a TAFKAL80ETC concert", 11, 12))
         val app = new GildedRose(items)
 
         app.updateQuality()
         app.items(0).quality should equal(13)
-        app.items(0).sellIn should equal(14)
+        app.items(0).sellIn should equal(10)
     }
 
     it should "increase by 2 when sellin <= 10 but > 5" in {

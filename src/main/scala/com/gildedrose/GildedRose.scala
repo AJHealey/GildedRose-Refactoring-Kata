@@ -1,11 +1,14 @@
 package com.gildedrose
 
+import com.gildedrose.strategy.{BackstagePassesUpdate, CheeseUpdate, DefaultUpdate, LegendaryUpdate, UpdateStrategy}
+
 class GildedRose(val items: Array[Item]) {
     private val AGED_BRIE = "Aged Brie"
     private val BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert"
     private val SULFURAS = "Sulfuras, Hand of Ragnaros"
 
-
+    private val CHEESES = List(AGED_BRIE)
+    private val LEGENDARY = List(SULFURAS)
 
     def updateQuality() {
         for (item <- items) {
@@ -22,8 +25,6 @@ class GildedRose(val items: Array[Item]) {
                 if (item.sellIn < 6) {
                     increaseQualityOf(item)
                 }
-
-
             }
             else if (!item.name.equals(SULFURAS)) {
                 decreaseQualityOf(item)
@@ -45,6 +46,13 @@ class GildedRose(val items: Array[Item]) {
                 }
             }
         }
+    }
+
+    private def getUpdateStrategy(item: Item): UpdateStrategy = item.name match {
+        case SULFURAS => LegendaryUpdate
+        case AGED_BRIE => CheeseUpdate
+        case BACKSTAGE_PASSES => BackstagePassesUpdate
+        case _ => DefaultUpdate
     }
 
     /**
