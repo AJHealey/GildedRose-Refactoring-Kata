@@ -4,6 +4,8 @@
 - Add unit tests
 - centralize names / magic values: less error prone and more easily maintainable (DRY)
 - extract logic for basic operation (decrease & increase quality): less error prone, more maintainability (DRY)
+- isolate action per item
+- create specific update strategy per item to encapsulate logic (Strategy Pattern)
 
 ## Description
 
